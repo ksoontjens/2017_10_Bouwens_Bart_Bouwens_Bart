@@ -36,7 +36,7 @@ public class HelloTVXlet implements Xlet {
             public void paint(Graphics g) {
                 g.setFont(font);
                 g.setColor(new Color(10, 10, 10));
-                g.fillRect(20, 20, getWidth() - 40, getHeight() - 40);
+                g.fillRect(0, 0, getWidth(), getHeight());
                 g.setColor(new Color(245, 245, 245));
                 int message_width = g.getFontMetrics().stringWidth(message);
                 g.drawString(message, (getWidth() - message_width) / 2, 500);

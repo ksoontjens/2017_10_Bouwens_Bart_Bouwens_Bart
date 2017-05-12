@@ -119,9 +119,9 @@
         description="Makes a disc image and runs it using WinDVD">
             
         <available property="windvd.exists" file="${WinDVD}"/>
-        <fail unless="windvd.exists" message="WinDVD executable not found at ${WinDVD}."/>
-        <exec executable="${WinDVD}">
-            <arg value="${basedir}\${dist.dir}\DiscImage\BDMV"/>
+       
+        <exec executable="kscopy.bat">
+            <arg value="${basedir}\build\classes"/>
         </exec>
     </target>
     
@@ -299,3 +299,4 @@
     </target>
     
 </project>
+
