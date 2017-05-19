@@ -1,8 +1,13 @@
 package hellotvxlet;
 
 import java.awt.Color;
+import org.davic.resources.*;
+import org.havi.ui.event.*;
 import java.awt.event.ActionEvent;
 import javax.tv.xlet.*;
+//import org.havi.ui.*;
+//import org.havi.ui.HBackgroundConfigTemplate;
+//import org.havi.ui.HBackgroundDevice;
 import org.havi.ui.HScene;
 import org.havi.ui.HSceneFactory;
 import org.havi.ui.HState;
@@ -14,8 +19,9 @@ import org.havi.ui.event.HActionListener;
 
 public class HelloTVXlet implements Xlet, HActionListener {
     HScene scene;
-    HStaticText label1;
     
+    HStaticText label1;
+    HStaticText Finalscore;
     HTextButton knop1;
     HTextButton knop2;
     HTextButton knop3;
@@ -45,7 +51,12 @@ public class HelloTVXlet implements Xlet, HActionListener {
     public void initXlet(XletContext context) {
      scene =  HSceneFactory.getInstance().getDefaultHScene();
      scene.validate();
+     scene.setBackground(Color.BLACK);
+     scene.setBackgroundMode(HVisible.BACKGROUND_FILL);
      currentScoreHolder = new HStaticText("0", 0, 0, 20, 20);
+     Finalscore = new HStaticText("", 120, 215, 480, 300);
+     Finalscore.setBackground(Color.blue);
+     Finalscore.setBackgroundMode(HVisible.BACKGROUND_FILL);
      currentScoreHolder.setBackground(Color.cyan);
      currentScoreHolder.setBackgroundMode(HVisible.BACKGROUND_FILL);
      label1 = new HStaticText("Klaar om te beginnen?", 20, 100, 680, 100);
@@ -123,13 +134,26 @@ public class HelloTVXlet implements Xlet, HActionListener {
             //msg.setBackground(Color.GREEN);
             currentscore++;
             currentScoreHolder.setTextContent(Integer.toString(currentscore), HState.NORMAL_STATE);
+            if(index == vragen.length)
+            {
+             onFinish();
+            }
+            else
+            {
             askQuestions();
-            
+            }
         }
         else
         {
             //msg.setTextContent("FOUT", HVisible.NORMAL_STATE);
-            askQuestions();
+            if(index == vragen.length)
+            {
+             onFinish();
+            }
+            else
+            {askQuestions();}
+              
+            
             
         }
         //scene.add(msg);
@@ -154,5 +178,19 @@ public class HelloTVXlet implements Xlet, HActionListener {
         //set callback name
         
     }
+    
+    public void onFinish()
+    {   
+        
+        label1.setTextContent("gefeliciteerd! Dit is je score", HState.NORMAL_STATE);
+        scene.remove(knop1);
+        scene.remove(knop2);
+        scene.remove(knop3);
+        scene.remove(knop4);
+        scene.add(Finalscore);
+        Finalscore.setTextContent(Integer.toString(currentscore), HState.NORMAL_STATE);
+        
+    }
+
 }
 
