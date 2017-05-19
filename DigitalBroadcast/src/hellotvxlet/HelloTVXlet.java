@@ -27,12 +27,12 @@ public class HelloTVXlet implements Xlet, HActionListener {
     
     int index = 0;
     
-    String[] vragen = new String[]{"is jan hay", "Wie danst?", "Wat is de realisteit", "besta ik?", "Oegaboega", "mamamia", "konijntje", "test"};
+    String[] vragen = new String[]{"Who was The First President of the United States?","Which was an actual historic event in Australia?", "After what animal are the Canary Islands named?", "Where can you find the Sea Of tranquility?"};
     
-    String[] antwoorden1 = new String[]{"Juist", "Quinten", "iets", "misschien", "juist", "test", "test", "test"};
-    String[] antwoorden2 = new String[]{"ja", "Juist", "iets", "misschien", "Ting tang", "test", "test", "test"};
-    String[] antwoorden3 = new String[]{"ja", "Quinten", "juist", "misschien", "Ting tang", "test", "test","test"};
-    String[] antwoorden4 = new String[]{"ja", "Quinten", "iets", "juist", "Ting tang", "test","test","test"};
+    String[] antwoorden1 = new String[]{"George Washington","The Aboriginal War", "A Canary", "In A Volcanoe"};
+    String[] antwoorden2 = new String[]{"Bill Clinton","The Emu War", "A type of butterfly", "In The Gulf Of Mexico"};
+    String[] antwoorden3 = new String[]{"Donald Duck","The Battle Of Melbourne", "A Dog", "In Georgia"};
+    String[] antwoorden4 = new String[]{"Ronald Reagan","Mad Max", "A Parrot", "On The Moon", "On The Moon"};
     
     int[] rightAnswer = new int[]{1, 2, 3, 4, 1, 1,1,1};
     
@@ -121,8 +121,10 @@ public class HelloTVXlet implements Xlet, HActionListener {
         {
             //msg.setTextContent("Goed", HVisible.NORMAL_STATE);
             //msg.setBackground(Color.GREEN);
-            askQuestions();
             currentscore++;
+            currentScoreHolder.setTextContent(Integer.toString(currentscore), HState.NORMAL_STATE);
+            askQuestions();
+            
         }
         else
         {
@@ -145,7 +147,7 @@ public class HelloTVXlet implements Xlet, HActionListener {
         knop2.setTextContent(antwoorden2[index], HState.NORMAL_STATE);
         knop3.setTextContent(antwoorden3[index], HState.NORMAL_STATE);
         knop4.setTextContent(antwoorden4[index], HState.NORMAL_STATE);
-        currentScoreHolder.setTextContent(Integer.toString(currentscore), HState.NORMAL_STATE);
+        
         juisteAntwoord = Integer.toString(rightAnswer[index]);
         index++;
         
