@@ -20,19 +20,21 @@ public class HelloTVXlet implements Xlet, HActionListener {
     HTextButton knop2;
     HTextButton knop3;
     HTextButton knop4;
+    HStaticText currentScoreHolder;
+    int currentscore = 0;
     
     String[] buttonNames = {"knop1", "knop2", "knop3", "knop4"};
     
     int index = 0;
     
-    String[] vragen = new String[]{"is jan hay", "Wie danst?", "Wat is de realisteit", "besta ik?", "Oegaboega"};
+    String[] vragen = new String[]{"is jan hay", "Wie danst?", "Wat is de realisteit", "besta ik?", "Oegaboega", "mamamia", "konijntje", "test"};
     
-    String[] antwoorden1 = new String[]{"ja", "Quinten", "iets", "misschien", "Ting tang"};
-    String[] antwoorden2 = new String[]{"ja", "Quinten", "iets", "misschien", "Ting tang"};
-    String[] antwoorden3 = new String[]{"ja", "Quinten", "iets", "misschien", "Ting tang"};
-    String[] antwoorden4 = new String[]{"ja", "Quinten", "iets", "misschien", "Ting tang"};
+    String[] antwoorden1 = new String[]{"Juist", "Quinten", "iets", "misschien", "juist", "test", "test", "test"};
+    String[] antwoorden2 = new String[]{"ja", "Juist", "iets", "misschien", "Ting tang", "test", "test", "test"};
+    String[] antwoorden3 = new String[]{"ja", "Quinten", "juist", "misschien", "Ting tang", "test", "test","test"};
+    String[] antwoorden4 = new String[]{"ja", "Quinten", "iets", "juist", "Ting tang", "test","test","test"};
     
-    int[] rightAnswer = new int[]{1, 2, 3, 4, 1};
+    int[] rightAnswer = new int[]{1, 2, 3, 4, 1, 1,1,1};
     
     String juisteAntwoord;
     
@@ -43,26 +45,29 @@ public class HelloTVXlet implements Xlet, HActionListener {
     public void initXlet(XletContext context) {
      scene =  HSceneFactory.getInstance().getDefaultHScene();
      scene.validate();
-     label1 = new HStaticText("Wie was de eerste president van de VS?", 20, 100, 680, 100);
+     currentScoreHolder = new HStaticText("0", 0, 0, 20, 20);
+     currentScoreHolder.setBackground(Color.cyan);
+     currentScoreHolder.setBackgroundMode(HVisible.BACKGROUND_FILL);
+     label1 = new HStaticText("Klaar om te beginnen?", 20, 100, 680, 100);
      label1.setBackground(Color.blue);
      label1.setBackgroundMode(HVisible.BACKGROUND_FILL);
 
-     knop1 = new HTextButton("Bill Clinton", 50 , 250, 200, 100);
+     knop1 = new HTextButton("Ja", 50 , 250, 300, 100);
      knop1.setBackground(Color.blue);
      knop1.setBackgroundMode(HVisible.BACKGROUND_FILL);
      knop1.setName(buttonNames[0]);
 
-     knop2 = new HTextButton("Ronald Reagan", 350 , 250, 200, 100);
+     knop2 = new HTextButton("Ja", 350 , 250, 300, 100);
      knop2.setBackground(Color.blue);
      knop2.setBackgroundMode(HVisible.BACKGROUND_FILL);
      knop1.setName(buttonNames[1]);
 
-     knop3 = new HTextButton("Donald Duck", 50 , 400, 200, 100);
+     knop3 = new HTextButton("Ja", 50 , 400, 300, 100);
      knop3.setBackground(Color.blue);
      knop3.setBackgroundMode(HVisible.BACKGROUND_FILL);
      knop1.setName(buttonNames[2]);
 
-     knop4 = new HTextButton("George Washington", 350 , 400, 200, 100);
+     knop4 = new HTextButton("Ja", 350 , 400, 300, 100);
      knop4.setBackground(Color.blue);
      knop4.setBackgroundMode(HVisible.BACKGROUND_FILL);
      knop1.setName(buttonNames[3]);
@@ -72,10 +77,10 @@ public class HelloTVXlet implements Xlet, HActionListener {
      knop3.setFocusTraversal(knop1, null, null, knop4);
      knop4.setFocusTraversal(knop2, null, knop3, null);
 
-     knop1.setActionCommand(knop1.getName());
-     knop2.setActionCommand(knop2.getName());
-     knop3.setActionCommand(knop3.getName());
-     knop4.setActionCommand(knop4.getName());
+     knop1.setActionCommand(Integer.toString(1));
+     knop2.setActionCommand(Integer.toString(2));
+     knop3.setActionCommand(Integer.toString(3));
+     knop4.setActionCommand(Integer.toString(4));
      knop1.addHActionListener(this);
      knop2.addHActionListener(this);
      knop3.addHActionListener(this);
@@ -86,12 +91,13 @@ public class HelloTVXlet implements Xlet, HActionListener {
      scene.add(knop2);
      scene.add(knop3);
      scene.add(knop4);
+     scene.add(currentScoreHolder);
 
      scene.validate();
      scene.setVisible(true);
      knop1.requestFocus();
      
-     askQuestions();
+     
      
     }
 
@@ -107,23 +113,27 @@ public class HelloTVXlet implements Xlet, HActionListener {
     }
 
     public void actionPerformed(ActionEvent arg0) {
-        HStaticText msg = new HStaticText("msg", 300, 10, 100, 100);
-        msg.setBackground(Color.red);
-        msg.setBackgroundMode(HVisible.BACKGROUND_FILL);
+        //HStaticText msg = new HStaticText("msg", 300, 10, 100, 100);
+        //msg.setBackground(Color.red);
+        //msg.setBackgroundMode(HVisible.BACKGROUND_FILL);
         
         if(arg0.getActionCommand() == (juisteAntwoord))
         {
-            msg.setTextContent("Goed", HVisible.NORMAL_STATE);
-            msg.setBackground(Color.GREEN);
+            //msg.setTextContent("Goed", HVisible.NORMAL_STATE);
+            //msg.setBackground(Color.GREEN);
+            askQuestions();
+            currentscore++;
         }
         else
         {
-            msg.setTextContent("FOUT", HVisible.NORMAL_STATE);
+            //msg.setTextContent("FOUT", HVisible.NORMAL_STATE);
+            askQuestions();
+            
         }
-        scene.add(msg);
-        scene.popToFront(msg);
-        askQuestions();
-        index++;
+        //scene.add(msg);
+        //scene.popToFront(msg);
+            
+        
         scene.repaint();
     }
     
@@ -135,9 +145,12 @@ public class HelloTVXlet implements Xlet, HActionListener {
         knop2.setTextContent(antwoorden2[index], HState.NORMAL_STATE);
         knop3.setTextContent(antwoorden3[index], HState.NORMAL_STATE);
         knop4.setTextContent(antwoorden4[index], HState.NORMAL_STATE);
+        currentScoreHolder.setTextContent(Integer.toString(currentscore), HState.NORMAL_STATE);
+        juisteAntwoord = Integer.toString(rightAnswer[index]);
+        index++;
         
         //set callback name
-        juisteAntwoord = buttonNames[rightAnswer[index]];
+        
     }
 }
 
