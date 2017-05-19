@@ -24,6 +24,9 @@ public class HelloTVXlet implements Xlet, HActionListener {
     HTextButton knop4;
     HStaticText currentScoreHolder;
     HStaticText timer;
+    
+    HStaticText Finalscore;
+    
     int currentscore = 0;
     
     String[] buttonNames = {"knop1", "knop2", "knop3", "knop4"};
@@ -51,6 +54,9 @@ public class HelloTVXlet implements Xlet, HActionListener {
      currentScoreHolder = new HStaticText("0", 0, 0, 20, 20);
      currentScoreHolder.setBackground(Color.cyan);
      currentScoreHolder.setBackgroundMode(HVisible.BACKGROUND_FILL);
+     Finalscore = new HStaticText("", 120, 215, 480, 300);
+     Finalscore.setBackground(Color.blue);
+     Finalscore.setBackgroundMode(HVisible.BACKGROUND_FILL);
      timer = new HStaticText("0", 650, 0, 30, 20);
      timer.setBackground(Color.cyan);
      timer.setBackgroundMode(HVisible.BACKGROUND_FILL);
@@ -134,13 +140,27 @@ public class HelloTVXlet implements Xlet, HActionListener {
             //msg.setBackground(Color.GREEN);
             currentscore++;
             currentScoreHolder.setTextContent(Integer.toString(currentscore), HState.NORMAL_STATE);
+            if(index == vragen.length) //last question check
+            {
+             onFinish();
+            }
+            else
+            {
             askQuestions();
+            }
             
         }
         else
         {
             //msg.setTextContent("FOUT", HVisible.NORMAL_STATE);
+            if(index == vragen.length) //last question check
+            {
+             onFinish();
+            }
+            else
+            {
             askQuestions();
+            }
             
         }
         //scene.add(msg);
@@ -165,6 +185,18 @@ public class HelloTVXlet implements Xlet, HActionListener {
         index++;
         
         //set callback name
+        
+    }
+    
+    public void onFinish() //na laatste vraag
+    {   
+        label1.setTextContent("gefeliciteerd! Dit is je score", HState.NORMAL_STATE);
+        scene.remove(knop1);
+        scene.remove(knop2);
+        scene.remove(knop3);
+        scene.remove(knop4);
+        scene.add(Finalscore);
+        Finalscore.setTextContent(Integer.toString(currentscore), HState.NORMAL_STATE);
         
     }
 }
