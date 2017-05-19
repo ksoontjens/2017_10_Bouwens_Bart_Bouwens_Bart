@@ -10,6 +10,8 @@ import org.havi.ui.HStaticText;
 import org.havi.ui.HTextButton;
 import org.havi.ui.HVisible;
 import org.havi.ui.event.HActionListener;
+import java.util.Timer;
+
 
 
 public class HelloTVXlet implements Xlet, HActionListener {
@@ -21,6 +23,7 @@ public class HelloTVXlet implements Xlet, HActionListener {
     HTextButton knop3;
     HTextButton knop4;
     HStaticText currentScoreHolder;
+    HStaticText timer;
     int currentscore = 0;
     
     String[] buttonNames = {"knop1", "knop2", "knop3", "knop4"};
@@ -48,6 +51,9 @@ public class HelloTVXlet implements Xlet, HActionListener {
      currentScoreHolder = new HStaticText("0", 0, 0, 20, 20);
      currentScoreHolder.setBackground(Color.cyan);
      currentScoreHolder.setBackgroundMode(HVisible.BACKGROUND_FILL);
+     timer = new HStaticText("0", 650, 0, 30, 20);
+     timer.setBackground(Color.cyan);
+     timer.setBackgroundMode(HVisible.BACKGROUND_FILL);
      label1 = new HStaticText("Klaar om te beginnen?", 20, 100, 680, 100);
      label1.setBackground(Color.blue);
      label1.setBackgroundMode(HVisible.BACKGROUND_FILL);
@@ -92,6 +98,7 @@ public class HelloTVXlet implements Xlet, HActionListener {
      scene.add(knop3);
      scene.add(knop4);
      scene.add(currentScoreHolder);
+     scene.add(timer);
 
      scene.validate();
      scene.setVisible(true);
@@ -101,7 +108,11 @@ public class HelloTVXlet implements Xlet, HActionListener {
      
     }
 
-    public void startXlet() {
+    public void startXlet()
+    {
+        TimerClass myTimeClass = new TimerClass(this);
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(myTimeClass, 1000 ,1000);
     }
 
     public void pauseXlet() {
@@ -141,6 +152,8 @@ public class HelloTVXlet implements Xlet, HActionListener {
     
     public void askQuestions()
     {
+        //Timer resetten
+        
         //zet antwoord bij juiste knop
         label1.setTextContent(vragen[index], HState.NORMAL_STATE);
         knop1.setTextContent(antwoorden1[index], HState.NORMAL_STATE);
